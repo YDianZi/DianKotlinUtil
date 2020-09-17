@@ -1,4 +1,4 @@
-package com.dian.lovelyweather.logic.network
+package com.dian.mylibrary.network
 
 import com.dian.mylibrary.utils.ktx.LogKtx
 import com.dian.mylibrary.utils.ktx.SP

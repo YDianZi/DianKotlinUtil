@@ -1,7 +1,6 @@
-package com.dian.lovelyweather.logic
+package com.dian.mylibrary.data
 
 import androidx.lifecycle.liveData
-import com.dian.lovelyweather.logic.network.DataNetWork
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

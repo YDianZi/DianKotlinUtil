@@ -1,4 +1,4 @@
-package com.dian.lovelyweather.logic.network
+package com.dian.mylibrary.network
 
 import android.util.Log
 import com.google.gson.Gson

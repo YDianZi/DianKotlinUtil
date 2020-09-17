@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="titleText"
+            type="String" />
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/baseAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_h"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/baseToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@{titleText}"
+            app:titleTextAppearance="@style/MyToolBarText"
+            app:titleTextColor="@color/colorPrimaryTextLight" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</layout>

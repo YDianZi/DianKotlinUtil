@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_bar_h">48dp</dimen>
+    <dimen name="main_nav_h">48dp</dimen>
+    <dimen name="margin_screen">14dp</dimen>
+</resources>

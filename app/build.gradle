@@ -1,0 +1,160 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def API_MAIN = "\"https://openapi.zcwipr.com/\""              //线上正式
+def API_MAIN_TEST = "\"https://openapi.zcwipr.com/\""              //线上测试
+//def API_TEST = "\"http://192.168.1.8:8090/\""         //本地测试  武帅帅
+//def API_TEST = "\"http://192.168.1.47:8090/\""         //本地测试 朱耿桥
+//def API_TEST = "\"http://192.168.1.21:8090/\""         //本地测试  小灰灰
+//def API_TEST = "\"http://192.168.1.10:8090/\""         //本地测试  董阳
+def API_TEST = "\"http://192.168.1.64:8090/\""         //本地测试  测试服务器
+
+def API_PIC_MAIN = "\"https://oss.zcwipr.com/\""          //线上图片正式
+def API_PIC_TEST = "\"https://oss.zcwipr.com/\""         //线上图片测试
+
+def API_SOCKET_MAIN = "\"wss://openapi.zcwipr.com/socket/search\""//线上正式
+def API_SOCKET_TEST = "\"wss://openapi.zcwipr.com/socket/search\""//线上测试
+def API_SOCKET_LOCAL_TEST = "\"ws://192.168.1.21:8090/socket/search\""//本地测试-
+
+def releaseTime() {
+    return new Date().format("MM.dd")
+}
+
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.dian.kotlinframe"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+//    signingConfigs {
+//        config {
+//            keyAlias 'zhicheng'
+//            keyPassword 'zhicheng'
+//            storeFile file('zhicheng.jks')
+//            storePassword 'zhicheng'
+//        }
+//    }
+    buildTypes {
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "BUGLY_DEBUG", "true"
+
+            //压缩对齐生成的apk包
+            zipAlignEnabled true
+            //指定混淆规则，需要压缩优化的混淆要把proguard-android.txt换成proguard-android.txt
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //启用multidex的支持
+            multiDexEnabled true
+            flavorDimensions "versionCode"
+            //是否运行混淆代码
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.config
+        }
+
+        debug {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            //自己运行使用  BUGLY_DEBUG置为ufalse，不收集开发阶段bug
+            buildConfigField "boolean", "BUGLY_DEBUG", "true"
+
+            //是否运行混淆代码
+            minifyEnabled false
+            //压缩对齐生成的apk包
+            zipAlignEnabled true
+            //指定混淆规则，需要压缩优化的混淆要把proguard-android.txt换成proguard-android.txt
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //启用multidex的支持
+            multiDexEnabled true
+            flavorDimensions "versionCode"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.config
+        }
+    }
+
+    productFlavors {
+        onLineMain {
+            buildConfigField("String", "API_HOST", "${API_MAIN}")
+            buildConfigField("String", "API_PIC_HOST", "${API_PIC_MAIN}")
+            buildConfigField("String", "API_SOCKET_HOST", "${API_SOCKET_MAIN}")
+        }
+        onLineTest {
+            buildConfigField("String", "API_HOST", "${API_MAIN_TEST}")
+            buildConfigField("String", "API_PIC_HOST", "${API_PIC_MAIN}")
+            buildConfigField("String", "API_SOCKET_HOST", "${API_SOCKET_TEST}")
+        }
+        onLocalTest {
+            buildConfigField("String", "API_HOST", "${API_TEST}")
+            buildConfigField("String", "API_PIC_HOST", "${API_PIC_TEST}")
+            buildConfigField("String", "API_SOCKET_HOST", "${API_SOCKET_LOCAL_TEST}")
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            //生成apk名字的格式：Channel1.0.0_2016-06-22_baidu.apk
+            //可自定义自己想要生成的格式
+//            outputFileName = "${a}_:${variant.productFlavors[0].name}_ZhiCheng${defaultConfig.versionCode}_v${defaultConfig.versionName}_${releaseTime()}.apk"
+//            def ddd = ccc.substring(10, ccc.length() - 2)
+            outputFileName = "ZhiCheng${defaultConfig.versionCode}_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation 'com.google.android.material:material:1.2.1'
+
+    //刷新控件
+    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
+    implementation  'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头
+    implementation  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
+
+    //网络请求
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    implementation project(path: ':mylibrary')
+}

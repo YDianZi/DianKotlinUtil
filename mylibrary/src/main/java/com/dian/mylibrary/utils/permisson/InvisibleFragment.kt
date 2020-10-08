@@ -22,6 +22,8 @@ class InvisibleFragment : Fragment() {
     private var callBack: permissionCallBack? = null
 
     fun request(cb: permissionCallBack, vararg permissions: String) {
+        //判断如果权限是OK的，则不用请求权限
+
         callBack = cb
         requestPermissions(permissions, 1010)
     }

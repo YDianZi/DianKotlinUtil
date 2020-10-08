@@ -56,6 +56,5 @@ object PermissionX {
         callBack: permissionCallBack
     ) {
         request(activity, Manifest.permission.CAMERA,callBack =callBack)
-
     }
 }

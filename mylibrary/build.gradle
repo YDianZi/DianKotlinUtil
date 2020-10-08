@@ -68,14 +68,22 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-    //adapter
-
     //图片选择
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+
+    //图片裁剪（uCrop）
+    implementation 'com.github.yalantis:ucrop:2.2.6'
+
+    //图片鲁班压缩
+    implementation 'top.zibin:Luban:1.1.8'
+
+    //adapter
 
     //banner
 
     //zxing
+    implementation 'com.king.zxing:zxing-lite:1.1.9-androidx'
+    api 'com.google.zxing:core:3.3.3'
 
     //MPAndroidChat
 
@@ -83,7 +91,7 @@ dependencies {
 
     //视频播放
 
-    //PDF预览
+    //文件下载 PDF预览
 
 
     def lifecycle_version = "2.2.0"

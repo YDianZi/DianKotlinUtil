@@ -1,14 +1,10 @@
 package com.dian.mylibrary.ui.base
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.dian.mylibrary.BaseMyApp
 import com.dian.mylibrary.ui.widget.LoadingView
-import kotlinx.android.synthetic.main.activity_base.*
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -63,6 +59,29 @@ abstract class BaseActivity : AppCompatActivity() {
         BaseMyApp.instance.removeActivity(this)
         if (canReceiveEvent()) {
             unRegisterEventBus()
+        }
+    }
+
+    /**
+     * 给fragment分发
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.fragments
+        if (supportFragmentManager.fragments.size > 0) {
+            val fragments =
+                supportFragmentManager.fragments
+            for (mFragment in fragments) {
+                mFragment.onActivityResult(requestCode, resultCode, data)
+            }
         }
     }
 }

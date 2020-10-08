@@ -16,7 +16,7 @@ import android.content.Intent
 /**
  * 开启activity  泛型实例化reified，必须用在inline内联函数中
  */
-inline fun <reified T : Activity> Activity.startActivity(
+inline fun <reified T : Activity> Activity.myStartActivity(
     params: Intent.() -> Unit,
     requestCode: Int = -1
 ) {
@@ -27,5 +27,11 @@ inline fun <reified T : Activity> Activity.startActivity(
     } else {
         startActivityForResult(intent, requestCode)
     }
+}
+
+//泛型实例化
+inline fun <reified T> Activity.myStartActivity() {
+    val intent = Intent(this, T::class.java)
+    this.startActivity(intent)
 }
 

@@ -4,8 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dian.mylibrary.R
 import com.dian.mylibrary.databinding.ActivityMainBinding
-import com.dian.mylibrary.utils.ktx.LogKtx
-import com.dian.mylibrary.utils.ktx.showToast
 
 /**
  *

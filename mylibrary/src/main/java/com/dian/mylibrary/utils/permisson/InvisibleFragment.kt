@@ -32,20 +32,19 @@ class InvisibleFragment : Fragment() {
         grantResults: IntArray
     ) {
         //权限请求回来
-        if (requestCode == 1010){
-            //没有同意的权限
+        if (requestCode == 1010) {
             val deniedList = ArrayList<String>()
+            //判断权限是否同意
             for ((index, result) in grantResults.withIndex()) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
                     deniedList.add(permissions[index])
                 }
-                val allGranted = deniedList.isEmpty()
-                if (!allGranted){
-                    "未同意全部权限".showToast()
-                }
-                callBack?.let { it(allGranted, deniedList) }
             }
+            val allGranted = deniedList.isEmpty()
+            if (!allGranted) {
+                "未同意全部权限".showToast()
+            }
+            callBack?.let { it(allGranted, deniedList) }
         }
-
     }
 }

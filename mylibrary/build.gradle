@@ -63,6 +63,29 @@ dependencies {
     implementation  'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头
     implementation  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
 
+
+    //图片加载
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //adapter
+
+    //图片选择
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+
+    //banner
+
+    //zxing
+
+    //MPAndroidChat
+
+    //查看大图
+
+    //视频播放
+
+    //PDF预览
+
+
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"

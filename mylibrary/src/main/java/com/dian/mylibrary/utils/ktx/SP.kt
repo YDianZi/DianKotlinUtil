@@ -19,12 +19,12 @@ import com.google.gson.reflect.TypeToken
 object SP {
     private val name = "data"
     fun <B> putData(
+        map: Map<String, B>,
         context: Context = BaseMyApp.context,
-        commit: Boolean = false,
-        vararg pair: Pair<String, B>
+        commit: Boolean = false
     ) {
         context.getSharedPreferences(name, Context.MODE_PRIVATE).edit(commit) {
-            for ((key, value) in pair) {
+            for ((key, value) in map) {
                 when (value) {
                     is Int -> putInt(key, value)
                     is String -> putString(key, value)
@@ -39,7 +39,7 @@ object SP {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T> getData(context: Context = BaseMyApp.context, key: String, defaultValue: T): T {
+    fun <T> getData( key: String, defaultValue: T,context: Context = BaseMyApp.context): T {
         val sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
         with(sharedPreferences) {
             val result = when (defaultValue) {

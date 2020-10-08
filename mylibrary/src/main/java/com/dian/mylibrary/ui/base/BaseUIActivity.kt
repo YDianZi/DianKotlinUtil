@@ -2,12 +2,10 @@ package com.dian.mylibrary.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.dian.mylibrary.R
-import com.dian.mylibrary.utils.ktx.LogKtx
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 

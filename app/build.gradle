@@ -100,7 +100,6 @@ android {
 //            signingConfig signingConfigs.config
         }
     }
-
     productFlavors {
         onLineMain {
             buildConfigField("String", "API_HOST", "${API_MAIN}")

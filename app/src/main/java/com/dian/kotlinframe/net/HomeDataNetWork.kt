@@ -1,8 +1,8 @@
 package com.dian.kotlinframe.net
 
-import com.dian.lovelyweather.logic.network.DataNetWork
-import com.dian.lovelyweather.logic.network.ServiceCreator
 import com.dian.mylibrary.BuildConfig
+import com.dian.mylibrary.network.DataNetWork
+import com.dian.mylibrary.network.ServiceCreator
 import retrofit2.http.Query
 
 /**

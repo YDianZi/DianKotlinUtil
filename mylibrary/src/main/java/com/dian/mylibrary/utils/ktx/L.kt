@@ -18,7 +18,7 @@ import java.util.*
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-object LogKtx {
+object L {
     init {
         val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(false) // (Optional) Whether to show thread info or not. Default true

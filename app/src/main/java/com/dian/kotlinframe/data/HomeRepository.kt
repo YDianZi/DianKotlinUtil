@@ -2,8 +2,7 @@ package com.dian.kotlinframe.data
 
 import com.dian.kotlinframe.model.News
 import com.dian.kotlinframe.net.HomeDataNetWork
-import com.dian.lovelyweather.logic.Repository
-import com.dian.lovelyweather.logic.network.DataNetWork
+import com.dian.mylibrary.data.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

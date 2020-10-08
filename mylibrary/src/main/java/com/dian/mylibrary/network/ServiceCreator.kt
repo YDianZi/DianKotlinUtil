@@ -1,6 +1,6 @@
 package com.dian.mylibrary.network
 
-import com.dian.mylibrary.utils.ktx.LogKtx
+import com.dian.mylibrary.utils.ktx.L
 import com.dian.mylibrary.utils.ktx.SP
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -40,7 +40,7 @@ object ServiceCreator {
             //发起请求
             //请求开始时间
             val startTime = System.currentTimeMillis()
-            LogKtx.d("startTime:$startTime")
+            L.d("startTime:$startTime")
             val request = it.request()
             //打印POST请求参数
             val method = request.method()
@@ -54,7 +54,7 @@ object ServiceCreator {
                     charset = contentType.charset(Charset.defaultCharset());//默认utf-9
                 }
                 val paramsStr = buffer.readString(charset);
-                LogKtx.d("POST_PARAM:$paramsStr");
+                L.d("POST_PARAM:$paramsStr");
             }
             val newRequestBuilder = request.newBuilder()
             //默认的头
@@ -66,7 +66,7 @@ object ServiceCreator {
                 newRequestBuilder.header(key, value)
             }
             val newRequest = newRequestBuilder.build()
-            LogKtx.d(
+            L.d(
                 String.format(
                     "请求方式：%s\t\n\n请求地址：%s\t\n\n请求头：\t\n%s\t\n请求体：%s",
                     request.method(),
@@ -79,8 +79,8 @@ object ServiceCreator {
             val response = it.proceed(newRequest)
             val endTime = System.currentTimeMillis()
             val responseBody = response.peekBody(1024 * 1024)
-            LogKtx.d("请求地址：" + request.url() + "\n请求响应：" + responseBody.string())
-            LogKtx.d("耗时：${(endTime - startTime)}毫秒")
+            L.d("请求地址：" + request.url() + "\n请求响应：" + responseBody.string())
+            L.d("耗时：${(endTime - startTime)}毫秒")
             //返回值
             response
         }

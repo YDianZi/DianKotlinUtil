@@ -46,10 +46,13 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes val resId: Int) : Fr
         binding = getDataBinding(inflater, container)
         activity = getActivity() as BaseActivity
         initView()
-        initData()
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initData()
+    }
 
     /**
      * 是否可以接收EventBus事件，默认不可以，重写此方法返回true，即可接收事件

@@ -1,13 +1,9 @@
 package com.dian.mylibrary.ui.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.dian.mylibrary.databinding.ActivityMainBinding
-import com.dian.mylibrary.utils.ktx.LogKtx
-import kotlinx.android.synthetic.main.activity_base.*
 
 /**
  *

@@ -1,5 +1,6 @@
 package com.dian.mylibrary.utils.permisson
 
+import android.Manifest
 import androidx.fragment.app.FragmentActivity
 
 /**
@@ -29,5 +30,32 @@ object PermissionX {
             invisibleFragment
         }
         fragment.request(callBack, *permissions)
+    }
+
+    fun requestFilePermission(
+        activity: FragmentActivity,
+        callBack: permissionCallBack
+    ) {
+        request(activity,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,callBack =callBack)
+    }
+
+    fun requestChooseImgPermission(
+        activity: FragmentActivity,
+        callBack: permissionCallBack
+    ) {
+        request(activity,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,callBack =callBack)
+    }
+
+    fun requestCameraPermission(
+        activity: FragmentActivity,
+        callBack: permissionCallBack
+    ) {
+        request(activity, Manifest.permission.CAMERA,callBack =callBack)
+
     }
 }

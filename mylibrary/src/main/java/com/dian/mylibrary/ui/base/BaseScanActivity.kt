@@ -15,14 +15,11 @@ import com.dian.mylibrary.utils.app.PackageUtil
 import com.dian.mylibrary.utils.img.ImgUtil
 import com.dian.mylibrary.utils.ktx.L
 import com.dian.mylibrary.utils.ktx.showToast
-import com.dian.mylibrary.utils.permisson.PermissionX
 import com.king.zxing.CaptureHelper
-import com.king.zxing.OnCaptureCallback
 import com.king.zxing.ViewfinderView
 import com.king.zxing.util.CodeUtils
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import java.util.*
 
 /**
  *
@@ -34,35 +31,12 @@ import java.util.*
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-abstract class BaseScanActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) : BaseActivity() {
+abstract class BaseScanActivity<T : ViewDataBinding>(@LayoutRes val res: Int) : BaseUIActivity<T>(res) {
     private lateinit var mCaptureHelper: CaptureHelper
-    lateinit var binding: T
+
     private val CHOOSE_IMG = 0x863
 
-    //获取子类dataBinding  延迟初始化，只有dataBinding第一次被调用的时候这里面的方法才会执行
-    private fun <T : ViewDataBinding> getDataBinding(@LayoutRes resId: Int): T {
-        return DataBindingUtil.inflate<T>(LayoutInflater.from(this), resId, flContainer, false)
-    }
-
-    //填充逻辑代码
-    open fun initView() {}
-    abstract fun initData()
     abstract fun handResult(result: String)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base)
-        val view = LayoutInflater.from(this).inflate(resId, flContainer, false)
-        flContainer.addView(view)
-        binding = getDataBinding(resId)
-        initView()
-        initData()
-    }
-
-    //设置标题
-    protected fun setTitle(title: String = "测试") {
-        baseToolbar.title = title
-    }
 
     //初始化界面
     protected fun init(
@@ -72,7 +46,7 @@ abstract class BaseScanActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) 
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mCaptureHelper = CaptureHelper(this, surfaceView, viewfinderView, ivFlash)
-            mCaptureHelper?.apply {
+            mCaptureHelper.apply {
                 setOnCaptureCallback {
                     //扫码结果
                     if (it.isNullOrEmpty()) {
@@ -119,6 +93,13 @@ abstract class BaseScanActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         mCaptureHelper.onTouchEvent(event)
         return super.onTouchEvent(event)
+    }
+
+    /**
+     * 重新启动扫码和解码器
+     */
+    protected fun restartPreviewAndDecode() {
+        mCaptureHelper.restartPreviewAndDecode()
     }
 
 

@@ -1,5 +1,6 @@
 package com.dian.kotlinframe.ui.activity
 
+import android.app.AlertDialog
 import com.dian.kotlinframe.R
 import com.dian.kotlinframe.databinding.ActivityScanBinding
 import com.dian.mylibrary.ui.base.BaseScanActivity
@@ -21,6 +22,7 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>(R.layout.activity_sca
     override fun initData() {
         init(surfaceView, viewfinderView, ivFlash)
         btChooseImg.setOnClickListener { chooseImg() }
+        setTitle("扫码")
     }
 
     /**
@@ -28,6 +30,11 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>(R.layout.activity_sca
      */
     override fun handResult(result: String) {
         result.showToast()
+        AlertDialog.Builder(this@ScanActivity)
+            .setMessage(result)
+            .setPositiveButton("好") { p0, p1 -> //重新启动扫码和解码器
+                restartPreviewAndDecode()
+            }.show()
     }
 
 }

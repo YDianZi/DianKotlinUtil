@@ -33,7 +33,8 @@ abstract class BaseUIActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) : 
 
     //设置标题
     protected fun setTitle(title: String = "测试") {
-        baseToolbar.title = title
+//        baseToolbar.title = title
+        tvTitle.text = title
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +43,7 @@ abstract class BaseUIActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) : 
         val view = LayoutInflater.from(this).inflate(resId, flContainer, false)
         flContainer.addView(view)
         binding = getDataBinding(resId)
+        ivBack.setOnClickListener { finish() }
         initView()
         initData()
     }

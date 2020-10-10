@@ -4,8 +4,14 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dian.kotlinframe.R
 import com.dian.kotlinframe.databinding.FragmentHomeBinding
+import com.dian.kotlinframe.databinding.ItemBannerBinding
 import com.dian.kotlinframe.ui.activity.MainActivity
 import com.dian.mylibrary.ui.base.BaseFragment
+import com.dian.mylibrary.utils.ktx.L
+import com.dian.mylibrary.widget.banner.BannerData
+import com.dian.mylibrary.widget.banner.BannerUtil
+import com.dian.mylibrary.widget.banner.ImageAdapter
+import com.dian.youth.banner.Banner
 import com.google.android.material.tabs.TabLayoutMediator
 
 /**
@@ -38,7 +44,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun initData() {
-
+        val bannerDatas = listOf<BannerData>(
+            BannerData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602320903484&di=205b0229252a818e7b7f7e223b1a025b&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F64%2F52%2F01300000407527124482522224765.jpg"),
+            BannerData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602320903484&di=205b0229252a818e7b7f7e223b1a025b&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F64%2F52%2F01300000407527124482522224765.jpg"),
+            BannerData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602320903484&di=205b0229252a818e7b7f7e223b1a025b&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F64%2F52%2F01300000407527124482522224765.jpg"),
+            BannerData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602320903484&di=205b0229252a818e7b7f7e223b1a025b&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F64%2F52%2F01300000407527124482522224765.jpg")
+        )
+        BannerUtil.normalBanner<ItemBannerBinding>(
+            context,
+            binding.banner as Banner<BannerData, ImageAdapter<ItemBannerBinding>>,
+            R.layout.item_banner,
+            bannerDatas,
+            initData = { holder, data, position, size ->
+                holder?.apply { loadImg(R.id.image, data?.url ?: "") }
+            },
+            click = { data, position ->
+                if (data is BannerData) {
+                    L.d("click==${data.url}")
+                }
+            })
     }
 
     fun getTabIcon(position: Int): Int {

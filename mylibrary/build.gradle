@@ -80,6 +80,8 @@ dependencies {
     //adapter
 
     //banner
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+//    implementation 'com.youth.banner:banner:2.1.0'
 
     //zxing
     api 'com.google.zxing:core:3.4.1'

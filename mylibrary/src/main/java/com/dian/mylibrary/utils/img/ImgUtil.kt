@@ -228,6 +228,9 @@ object ImgUtil {
         return UCrop.getOutput(result)
     }
 
+    /**
+     * 压缩图片
+     */
     fun compressImg(context: FragmentActivity?, file: File?, success: (File) -> Unit) {
         if (file == null) {
             "图片地址不正确".showToast()
@@ -240,9 +243,9 @@ object ImgUtil {
                 .setTargetDir(context.cacheDir.absolutePath)
                 .ignoreBy(100)
                 .setFocusAlpha(false)
-                .filter(CompressionPredicate { path ->
+                .filter { path ->
                     !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"))
-                })
+                }
                 .setCompressListener(object : OnCompressListener {
                     override fun onStart() {
                         loadingView.show()

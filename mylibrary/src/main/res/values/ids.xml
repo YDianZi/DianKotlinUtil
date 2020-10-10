@@ -7,4 +7,9 @@
     <item type="id" name="quit"/>
     <item type="id" name="restart_preview"/>
     <item type="id" name="return_scan_result"/>
+
+    <item name="BaseQuickAdapter_viewholder_support" type="id"/>
+    <item name="BaseQuickAdapter_swiping_support" type="id"/>
+    <item name="BaseQuickAdapter_dragging_support" type="id"/>
+    <item name="BaseQuickAdapter_databinding_support" type="id"/>
 </resources>

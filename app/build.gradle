@@ -88,7 +88,7 @@ android {
             buildConfigField "boolean", "BUGLY_DEBUG", "true"
 
             //是否运行混淆代码
-            minifyEnabled true
+            minifyEnabled false
             //压缩对齐生成的apk包
             zipAlignEnabled true
             //指定混淆规则，需要压缩优化的混淆要把proguard-android.txt换成proguard-android.txt
@@ -154,8 +154,6 @@ dependencies {
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-
-    implementation 'com.king.zxing:zxing-lite:1.1.9-androidx'
 
     implementation project(path: ':mylibrary')
 }

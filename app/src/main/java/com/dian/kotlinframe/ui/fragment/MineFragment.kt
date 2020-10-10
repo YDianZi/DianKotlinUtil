@@ -14,6 +14,7 @@ import com.dian.mylibrary.utils.ktx.L
 import com.dian.mylibrary.utils.ktx.myStartActivity
 import com.dian.mylibrary.utils.permisson.PermissionX
 import kotlinx.android.synthetic.main.fragment_mine.*
+import java.io.File
 
 /**
  *
@@ -25,15 +26,15 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-class MineFragment:BaseFragment<FragmentMineBinding>(R.layout.fragment_mine) {
+class MineFragment : BaseFragment<FragmentMineBinding>(R.layout.fragment_mine) {
     override fun initData() {
         btChoose.setOnClickListener {
             ImgUtil.chooseImg(
                 getActivity(),
                 this,
-               PackageUtil.getPackageName(getActivity()),
+                PackageUtil.getPackageName(getActivity()),
                 10101,
-                minWidth =0,
+                minWidth = 0,
                 minHeight = 0,
                 maxWidth = 0,
                 maxHeight = 0,
@@ -42,11 +43,13 @@ class MineFragment:BaseFragment<FragmentMineBinding>(R.layout.fragment_mine) {
             )
         }
 
-        btScan.setOnClickListener { PermissionX.requestCameraPermission(activity){ a,b->
-            if (a){
-                activity.myStartActivity<ScanActivity>()
+        btScan.setOnClickListener {
+            PermissionX.requestCameraPermission(activity) { a, b ->
+                if (a) {
+                    activity.myStartActivity<ScanActivity>()
+                }
             }
-        } }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -57,11 +60,16 @@ class MineFragment:BaseFragment<FragmentMineBinding>(R.layout.fragment_mine) {
                 val fixDataUrl = fixDataUrl(data)
                 val fixDataUri = fixDataUri(data)
                 L.d("fixDataUrl=$fixDataUrl")
-                val uri = fixDataUri?.first() ?: Uri.parse("")
+                val uri = fixDataUri?.first()
+                val url = fixDataUrl?.first()
+                //压缩
+                compressImg(getActivity(), File(url)) {
+                    GlideUtil.loadImgWithUrl(ivImg,it.absolutePath )
+                }
                 //裁剪
-                cropImgWithUri(getActivity(),uri)
+//                cropImgWithUri(getActivity(),uri)
             }
-        }else if (requestCode == ImgUtil.REQUEST_CROP && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == ImgUtil.REQUEST_CROP && resultCode == Activity.RESULT_OK) {
             //裁剪照片回来
             data?.let {
                 GlideUtil.loadImgWithUri(ivImg, ImgUtil.handleCropResult(it))

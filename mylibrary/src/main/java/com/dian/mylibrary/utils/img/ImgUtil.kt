@@ -8,6 +8,7 @@ import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.dian.mylibrary.R
+import com.dian.mylibrary.ui.widget.LoadingView
 import com.dian.mylibrary.utils.ktx.L
 import com.dian.mylibrary.utils.ktx.showToast
 import com.dian.mylibrary.utils.permisson.PermissionX
@@ -15,9 +16,18 @@ import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
+import top.zibin.luban.CompressionPredicate
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
+import top.zibin.luban.OnRenameListener
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.math.BigInteger
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.util.*
 
 
 /**
@@ -197,42 +207,54 @@ object ImgUtil {
     /**
      * 裁剪选择的图片
      */
-    const val REQUEST_CROP =UCrop.REQUEST_CROP
-    fun cropImgWithUri(context:FragmentActivity?,sourceUri:Uri){
+    const val REQUEST_CROP = UCrop.REQUEST_CROP
+    fun cropImgWithUri(context: FragmentActivity?, sourceUri: Uri?) {
+        if (sourceUri == null){
+            "图片地址不正确".showToast()
+            return
+        }
         context?.let {
-            val destinationUri:Uri = Uri.fromFile( File(context.cacheDir, "destinationFileName.jpg"))
+            val destinationUri: Uri =
+                Uri.fromFile(File(context.cacheDir, "destinationFileName.jpg"))
             UCrop.of(sourceUri, destinationUri)
-                .start(it);
+                .start(it)
         }
     }
 
     /**
      * 裁剪图片解析
      */
-     fun handleCropResult(result: Intent):Uri? {
-        val aa = UCrop.getOutput(result)?.path
-         L.d("aa = $aa")
-         return UCrop.getOutput(result)
+    fun handleCropResult(result: Intent): Uri? {
+        return UCrop.getOutput(result)
     }
 
-    fun compressImg(){
-//        Luban.with(this)
-//            .load<Any>(photos)
-//            .ignoreBy(100)
-//            .setTargetDir(getPath())
-//            .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
-//            .setCompressListener(object : OnCompressListener {
-//                override fun onStart() {
-//                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
-//                }
-//
-//                override fun onSuccess(file: File) {
-//                    // TODO 压缩成功后调用，返回压缩后的图片文件
-//                }
-//
-//                override fun onError(e: Throwable) {
-//                    // TODO 当压缩过程出现问题时调用
-//                }
-//            }).launch()
+    fun compressImg(context: FragmentActivity?, file: File?, success: (File) -> Unit) {
+        if (file == null) {
+            "图片地址不正确".showToast()
+            return
+        }
+        context?.let {
+            val loadingView = LoadingView(context)
+            Luban.with(context)
+                .load(file)
+                .setTargetDir(context.cacheDir.absolutePath)
+                .ignoreBy(100)
+                .setFocusAlpha(false)
+                .filter(CompressionPredicate { path ->
+                    !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"))
+                })
+                .setCompressListener(object : OnCompressListener {
+                    override fun onStart() {
+                        loadingView.show()
+                    }
+                    override fun onSuccess(file: File) {
+                        loadingView.dismiss()
+                        success(file)
+                    }
+                    override fun onError(e: Throwable) {
+                        loadingView.dismiss()
+                    }
+                }).launch()
+        }
     }
 }

@@ -89,6 +89,7 @@ dependencies {
     //MPAndroidChat
 
     //查看大图
+    implementation 'com.github.chrisbanes:PhotoView:1.2.5'
 
     //视频播放
 

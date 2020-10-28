@@ -3,7 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.github.dcendents.android-maven' //添加列
+
+apply plugin: "maven"
+//apply plugin: 'com.github.dcendents.android-maven' //添加列
 group = 'com.github.YDianZi' //添加列
 
 

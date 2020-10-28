@@ -31,6 +31,51 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>(R.layout.activity_sca
     }
 }
 ````
+````xml
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.dian.zxing.ViewfinderView
+            android:id="@+id/viewfinderView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cornerColor="@color/colorAccent"
+            app:frameColor="@color/colorAccent"
+            app:gridHeight="0dp"
+            app:labelText="@string/tips_scan_code"
+            app:labelTextLocation="bottom"
+            app:labelTextSize="14sp"
+            app:laserColor="@color/colorAccent"
+            app:laserStyle="line"
+            app:resultPointColor="@color/colorAccent" />
+        <ImageView
+            android:id="@+id/ivFlash"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:src="@drawable/ic_home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:text="相册"
+            android:id="@+id/btChooseImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+````
 #### TabLayout+ViewPage2用法
 ````kotlin
   binding.viewPager.adapter = object : FragmentStateAdapter(this) {

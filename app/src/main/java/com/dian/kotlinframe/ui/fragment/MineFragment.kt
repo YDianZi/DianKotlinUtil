@@ -42,7 +42,6 @@ class MineFragment : BaseFragment<FragmentMineBinding>(R.layout.fragment_mine) {
                 dirName = "demo"
             )
         }
-
         btScan.setOnClickListener {
             PermissionX.requestCameraPermission(activity) { a, b ->
                 if (a) {

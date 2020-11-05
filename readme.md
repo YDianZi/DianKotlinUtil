@@ -2,8 +2,24 @@
 ````kotlin
 class MainActivity : BaseMainActivity() {
     override fun getFragments(): ArrayList<Fragment> {
-        return arrayListOf(HomeFragment(),MineFragment())
+        return arrayListOf(HomeFragment(), MineFragment())
     }
+
+    override fun getMenu(): Int {
+        return R.menu.menu_bottom_nav
+    }
+
+    override fun initMenu(menu: MenuItem) {
+        when (menu.itemId) {
+            R.id.home -> {
+                setCurrentItem(0)
+            }
+            R.id.person -> {
+                setCurrentItem(1)
+            }
+        }
+    }
+
     override fun initData() {
         super.initData()
     }

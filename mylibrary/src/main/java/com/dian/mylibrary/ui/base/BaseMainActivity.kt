@@ -1,5 +1,6 @@
 package com.dian.mylibrary.ui.base
 
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dian.mylibrary.R
@@ -18,6 +19,8 @@ import com.dian.mylibrary.databinding.ActivityMainBinding
 abstract class BaseMainActivity : BaseFullActivity<ActivityMainBinding>(R.layout.activity_main) {
     //获取fragments
     abstract fun getFragments(): ArrayList<Fragment>
+    abstract fun getMenu(): Int
+    abstract fun initMenu(menu: MenuItem)
 
     override fun initData() {
         initViewPager()
@@ -28,17 +31,15 @@ abstract class BaseMainActivity : BaseFullActivity<ActivityMainBinding>(R.layout
      * 初始化底部按钮的点击事件 切换页面
      */
     private fun initBottomNav() {
+        binding.bottomNav.inflateMenu(getMenu())
         binding.bottomNav.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> {
-                    binding.viewPager.setCurrentItem(0, false)
-                }
-                R.id.person -> {
-                    binding.viewPager.setCurrentItem(1, false)
-                }
-            }
+            initMenu(it)
             true
         }
+    }
+
+    protected fun setCurrentItem(posi: Int = 0) {
+        binding.viewPager.setCurrentItem(posi, false)
     }
 
     /**

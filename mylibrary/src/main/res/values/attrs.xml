@@ -69,4 +69,13 @@
         <attr name="banner_radius" format="dimension"/>
 
     </declare-styleable>
+
+
+
+    <declare-styleable name="AutoCompleteSearchEditText">
+        <attr name="search_history_key" format="string" />
+        <attr name="search_can_clear" format="boolean" />
+    </declare-styleable>
+
+
 </resources>

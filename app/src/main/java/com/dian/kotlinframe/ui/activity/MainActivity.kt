@@ -32,5 +32,7 @@ class MainActivity : BaseMainActivity() {
 
     override fun initData() {
         super.initData()
+        binding.bottomNav.itemTextColor =resources.getColorStateList(R.color.selector_main_bottom_color)
+//        binding.bottomNav.itemIconTintList = null
     }
 }

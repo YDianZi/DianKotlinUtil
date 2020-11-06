@@ -39,7 +39,7 @@ object SP {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T> getData( key: String, defaultValue: T,context: Context = BaseMyApp.context): T {
+    fun <T> getData(key: String, defaultValue: T, context: Context = BaseMyApp.context): T {
         val sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
         with(sharedPreferences) {
             val result = when (defaultValue) {
@@ -52,6 +52,15 @@ object SP {
                 }
             }
             return result as T
+        }
+    }
+
+    /**
+     * 移除
+     */
+    fun removeData(vararg strings: String, context: Context = BaseMyApp.context) {
+        for (s in strings) {
+            context.getSharedPreferences(name, Context.MODE_PRIVATE).edit().remove(s).apply()
         }
     }
 }

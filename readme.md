@@ -22,8 +22,22 @@ class MainActivity : BaseMainActivity() {
 
     override fun initData() {
         super.initData()
+        binding.bottomNav.itemTextColor =resources.getColorStateList(R.color.selector_main_bottom_color)
+       // binding.bottomNav.itemIconTintList = null
     }
 }
+````
+````xml 
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/textColorMain"
+    android:state_selected="true"/>
+
+   <item android:color="@color/textColorHint"
+       android:state_selected="false" />
+
+    <item android:color="@color/textColorHint"/>
+</selector>
 ````
 #### ScanActivity用法
 ````kotlin

@@ -9,9 +9,11 @@ import com.dian.kotlinframe.ui.activity.MainActivity
 import com.dian.mylibrary.bigimg.BigImgViewPagerActivity
 import com.dian.mylibrary.ui.base.BaseFragment
 import com.dian.mylibrary.utils.ktx.L
+import com.dian.mylibrary.utils.ktx.showToast
 import com.dian.mylibrary.widget.banner.BannerData
 import com.dian.mylibrary.widget.banner.BannerUtil
 import com.dian.mylibrary.widget.banner.ImageAdapter
+import com.dian.mylibrary.widget.textview.AutoCompleteSearchEditText
 import com.dian.youth.banner.Banner
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -74,6 +76,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     )
                 }
             })
+
+        binding.etSearch.setOnSearchListener {
+            it.showToast()
+        }
     }
 
     fun getTabIcon(position: Int): Int {

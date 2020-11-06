@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:banner="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
                 app:title="首页"
                 app:titleEnabled="false">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
@@ -37,14 +36,34 @@
                     <com.dian.youth.banner.Banner
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-<!--                    <ImageView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:fitsSystemWindows="true"-->
-<!--                        android:src="@color/colorAccent"-->
-<!--                        app:layout_collapseMode="parallax" />-->
-                </LinearLayout>
+                        android:layout_height="match_parent" />
+                    <!--                    <ImageView-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:fitsSystemWindows="true"-->
+                    <!--                        android:src="@color/colorAccent"-->
+                    <!--                        app:layout_collapseMode="parallax" />-->
+
+                    <com.dian.mylibrary.widget.textview.AutoCompleteSearchEditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="120dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#ffffff"
+                        android:completionThreshold="1"
+                        android:drawableLeft="@drawable/ic_search"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:hint="搜索"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/textColorMain"
+                        android:textColorHint="@color/textColorHint"
+                        android:textSize="12sp"
+                        app:search_history_key="brand_search_history_key" />
+                </RelativeLayout>
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolBar"

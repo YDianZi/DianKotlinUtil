@@ -19,24 +19,26 @@ import java.util.*
  * @Version: 1.0
  */
 object L {
-    init {
+    private var canLog: Boolean = true
+    fun init(canLog: Boolean = true, tag: String = "APP") {
+        this.canLog = canLog
         val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(false) // (Optional) Whether to show thread info or not. Default true
             .methodCount(0) // (Optional) How many method line to show. Default 2
             .methodOffset(7) // (Optional) Hides internal method calls up to offset. Default 5
-            .tag(BuildConfig.LIBRARY_PACKAGE_NAME) // (Optional) Global tag for every log. Default PRETTY_LOGGER
+            .tag(tag) // (Optional) Global tag for every log. Default PRETTY_LOGGER
             .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
     }
 
     fun d(msg: String) {
-        if ("debug".equals(BuildConfig.BUILD_TYPE)) {
+        if (canLog) {
             Logger.d(msg)
         }
     }
 
     fun json(obj: Objects) {
-        if ("debug".equals(BuildConfig.BUILD_TYPE)) {
+        if (canLog) {
             val msg = Gson().toJson(obj)
             d(msg)
         }

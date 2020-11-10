@@ -3,8 +3,10 @@ package com.dian.mylibrary.ui.base
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.dian.mylibrary.BaseMyApp
 import com.dian.mylibrary.R
 import com.dian.mylibrary.databinding.ActivityMainBinding
+import com.dian.mylibrary.utils.ktx.showToast
 
 /**
  *
@@ -63,4 +65,21 @@ abstract class BaseMainActivity : BaseFullActivity<ActivityMainBinding>(R.layout
         }
     }
 
+
+    /**
+     * 两次返回键推出程序
+     */
+    private var firstTime: Long = 0
+
+    override fun onBackPressed() {
+        val secondTime = System.currentTimeMillis()
+        if (secondTime - firstTime > 800) {
+            "再按一次退出程序".showToast()
+            firstTime = secondTime // 更新firstTime
+        } else {
+            // 否则退出程序
+            BaseMyApp.instance.exit()
+            super.onBackPressed()
+        }
+    }
 }

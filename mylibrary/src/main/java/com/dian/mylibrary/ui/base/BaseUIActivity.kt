@@ -32,7 +32,7 @@ abstract class BaseUIActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) : 
     abstract fun initData()
 
     //设置标题
-    protected fun setTitle(title: String = "测试") {
+    protected fun seMytTitle(title: String = "测试") {
 //        baseToolbar.title = title
         tvTitle.text = title
     }
